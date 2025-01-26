@@ -126,11 +126,14 @@ document.addEventListener("DOMContentLoaded", () => {
         event.preventDefault(); // Prevent default action
         console.log("All input variables:", inputVariables);
         
-        // Send inputVariables data to site.js
+        // Convert input variables into a string prompt
         const { purpose, shape, primaryColor, secondaryColor, logoText, mascotText, artstyle } = inputVariables;
-        const logoDescription = `Create a logo for ${purpose} with the border of the logo being ${shape}. The hex value for the primary color is ${primaryColor} the hex value for the secondary color is ${secondaryColor}. The text that surrounds the logo the user wants to be implemented in the logo is: ${logoText}. The artstyle of the logo is ${artstyle} and the mascot should be within the borders of the logo. The mascot is ${mascotText}.`;
+        const logoDescription = `Create a logo for ${purpose} with the border of the logo being ${shape}. The hex value for the primary color is ${primaryColor} and the hex value for the secondary color is ${secondaryColor}. The text that surrounds the logo the user wants to be implemented in the logo is: ${logoText}. The artstyle of the logo is ${artstyle} and the mascot should be within the borders of the logo. The mascot is ${mascotText}.`;
 
-        fetch('https://127.0.0.1:3000', { // Update URL to point to the server
+        // Print the generated string prompt into the console
+        console.log("Generated string prompt:", logoDescription);
+
+        fetch('http://localhost:3000/generate-image', { // Update URL to point to the server
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
