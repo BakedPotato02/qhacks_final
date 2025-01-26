@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
     
-    background-image: url('/Users/jwdmac/Documents/qhacks/frontend/jawad/bg1.jpg');
+    background-image: url('bg1.jpg'); /* Corrected path */
     background-size: cover;
     background-position: center;
     background-blend-mode: multiply;

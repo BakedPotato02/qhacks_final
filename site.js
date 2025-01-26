@@ -1,6 +1,7 @@
 const fs = require('fs');
 const express = require('express');
 const cors = require('cors'); // Import CORS module
+const { exec } = require('child_process'); // Import child_process module
 const app = express();
 
 app.use(cors()); // Enable CORS
@@ -17,6 +18,30 @@ app.post('/path/to/site.js', (req, res) => {
         }
         console.log('File has been written successfully!');
         res.status(200).send('File has been written successfully!');
+    });
+});
+
+app.post('/generate-image', (req, res) => {
+    const { logoDescription } = req.body;
+
+    fs.writeFile('prompt.txt', logoDescription, (err) => {
+        if (err) {
+            console.error('Error writing to file:', err);
+            res.status(500).send('Error writing to file');
+            return;
+        }
+        console.log('File has been written successfully!');
+
+        // Execute the image generation script
+        exec('python3 imageGen.py', (error, stdout, stderr) => {
+            if (error) {
+                console.error('Error executing script:', error);
+                res.status(500).send('Error generating image');
+                return;
+            }
+            console.log('Image generated successfully!');
+            res.status(200).send('Image generated successfully!');
+        });
     });
 });
 
