@@ -137,7 +137,12 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify({ logoDescription }),  
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Success:', data);
             window.location.href = 'final.html'; // Redirect to final.html after successful image generation
