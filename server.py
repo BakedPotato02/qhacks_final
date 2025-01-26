@@ -22,12 +22,12 @@ def generate_image():
     # Run `imageGen.py` directly with the prompt as an argument
     try:
         app.logger.debug("Running imageGen.py with argument: %s", logo_description)
-        output = subprocess.check_output(["python", "imageGen.py", logo_description]).decode("utf-8").strip()
+        output = subprocess.check_output(["python3", "imageGen.py", logo_description], stderr=subprocess.STDOUT).decode("utf-8").strip()
         app.logger.debug("Subprocess output: %s", output)
         return jsonify({"image_url": output})
     except subprocess.CalledProcessError as e:
-        app.logger.error("Subprocess error: %s", str(e))
-        return jsonify({"error": str(e)}), 500
+        app.logger.error("Subprocess error: %s", e.output.decode("utf-8"))
+        return jsonify({"error": e.output.decode("utf-8")}), 500
     except Exception as e:
         app.logger.error("Unexpected error: %s", str(e))
         return jsonify({"error": str(e)}), 500
