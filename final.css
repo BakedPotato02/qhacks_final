@@ -1,0 +1,140 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* background */
+    margin: 0;
+    padding: 0;
+    
+    background-image: url('/Users/jwdmac/Documents/qhacks/frontend/jawad/bg1.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    animation: backgroundFade 2s ease-out forwards;
+}
+
+/* Content styles */
+.content {
+    text-align: center;
+    color: #333;
+}
+
+.container {
+    overflow: auto;
+}
+
+.moving-element {
+    background-color: lightblue;
+    padding: 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    position: relative;
+    animation: moveIn 2s ease-out forwards;
+}
+
+/* Use class .h1 to apply animation */
+.h1 {
+    animation: textswitch 2s ease-out forwards;
+}
+
+.h2 {
+    font-family: 'Faustina';
+    animation: textswitch 2s ease-out forwards;
+}
+
+/* Define the animation for moving element */
+@keyframes moveIn {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Define the animation for background fade */
+@keyframes backgroundFade {
+    0% {
+        background-color: #ffffff;
+    }
+    30% {
+        background-color: #312c43;
+    }
+}
+
+/* Define the text color change */
+@keyframes textswitch {
+    0% {
+        color: #312c43; /* Initial text color */
+    }
+    100% {
+        color: #ffffff; /* Final text color */
+    }
+}
+
+/* Title with blinking cursor effect */
+h1 {
+    font-size: 8rem;
+    font-family: 'Faustina';
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: '|';
+    position: absolute;
+    animation: blink 1s step-start infinite; /* Animation to make the cursor blink */
+}
+
+/* Animation for blinking cursor */
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.container {
+    overflow: auto; /* Ensure content can scroll if it overflows */
+    height: 100%; /* Ensure it takes up available space */
+}
+
+button {
+    border: 1;
+    border-color: #f0f0f0;
+    background-color: #ffffff;
+    padding: 1em 2.5em;
+    border-radius: 100px;
+    color: #312c43;
+    font-family: 'Faustina';
+    font-size: 1.6rem;
+    font-weight: 1000;
+    font-style: bold;
+    cursor: pointer;
+    transition: 150ms ease;
+    opacity: 0; /* Start fully transparent */
+    margin-top: 20px;
+    animation: button 2s ease-in 2s forwards; /* Add a 5-second delay */
+}
+
+@keyframes button {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+button:hover {
+	scale: 1.1;
+}
