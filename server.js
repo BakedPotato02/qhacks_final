@@ -1,6 +1,12 @@
 const { OpenAI } = require("openai");  // Correct import for the latest version
 const cors = require("cors");
 const process = require("process");
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+app.use(cors());  // Enable CORS for all routes
+app.use(bodyParser.json());
 
 // Initialize OpenAI API with your API key
 const openai = new OpenAI({
@@ -19,22 +25,29 @@ async function generateImage(prompt) {
     return response.data[0].url;  // Extracting the URL of the generated image
   } catch (error) {
     console.error(`Error generating image: ${error.message}`);
-    process.exit(1); // Exit the process with an error code
+    return null;
   }
 }
 
-// Main logic
-if (process.argv.length < 3) {
-  console.error("Error: No prompt provided");
-  process.exit(1);
-}
+app.post('/generate-image', async (req, res) => {
+  const data = req.body;
+  console.debug("Received data: %s", data);
+  const logoDescription = data.logoDescription;
 
-const prompt = process.argv[2];
-generateImage(prompt)
-  .then((imageUrl) => {
-    console.log(imageUrl);  // Output the image URL
-  })
-  .catch((err) => {
-    console.error(`Error: ${err.message}`);
-    process.exit(1);
-  });
+  if (!logoDescription) {
+    console.error("No prompt provided");
+    return res.status(400).json({ error: "No prompt provided" });
+  }
+
+  const imageUrl = await generateImage(logoDescription);
+  if (imageUrl) {
+    return res.json({ image_url: imageUrl });
+  } else {
+    return res.status(500).json({ error: "Failed to generate image" });
+  }
+});
+
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
