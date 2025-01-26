@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const { purpose, shape, primaryColor, secondaryColor, logoText, mascotText, artstyle } = inputVariables;
         const logoDescription = `Create a logo for ${purpose} with the border of the logo being ${shape}. The hex value for the primary color is ${primaryColor} the hex value for the secondary color is ${secondaryColor}. The text that surrounds the logo the user wants to be implemented in the logo is: ${logoText}. The artstyle of the logo is ${artstyle} and the mascot should be within the borders of the logo. The mascot is ${mascotText}.`;
 
-        fetch('http://localhost:3000/generate-image', { // Update URL to point to the server
+        fetch('http://10.216.91.99:3000/generate-image', { // Update URL to point to the server
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
