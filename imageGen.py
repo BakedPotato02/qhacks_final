@@ -2,7 +2,7 @@ import sys
 from openai import OpenAI
 from flask_cors import CORS
 
-openai = OpenAI(api_key="YOUR_OPENAI_API_KEY")
+openai = OpenAI(api_key="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")
 
 def generate_image(prompt):
     response = openai.images.generate(
